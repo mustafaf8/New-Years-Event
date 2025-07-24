@@ -1,123 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New years Event</title>
-</head>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yeni Yıl Geri Sayım</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        *{
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            /* outline: 2px yellow solid; */
-        }
-        body{
-            background-image: url(assets/nature.jpg);
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            width: 100%;
-            height: 100vh;
-        }
-        .container{
-            width: 90%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -60%);
-           
-        }
-        .heading{
-            text-align: center;
-            padding: 5px;
-            margin-bottom: 10px;
-            color: white;
-            font-size: larger;
-            font-weight: 900;
-        }
-        .numbers{
-  
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            padding: auto;
-            color: white;
-            font-size: large;
-            font-weight:700;
-            
-            
-        }
-        .numbers h2{
-            padding: 10px;
-            text-align: center;
-           
-        }
-        .numbers p{
-            padding: 10px;
-            font-size: large;
-            font-weight: 600;
-            
-        }
+      /* CSS Değişkenleri ile daha kolay yönetim */
+      :root {
+        --primary-color: #ffffff;
+        --shadow-color: rgba(0, 0, 0, 0.5);
+        --background-image: url(https://images.unsplash.com/photo-1513289945089-1f39a7a9c34a?q=80&w=2070&auto=format&fit=crop);
+      }
 
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-image: var(--background-image);
+        background-position: center;
+        background-size: cover;
+        color: var(--primary-color);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      /* Geçiş efekti için */
+      .countdown-container,
+      .main-heading,
+      #happyNewYear {
+        transition: opacity 0.5s ease-in-out;
+      }
+
+      .main-heading {
+        font-size: clamp(
+          2rem,
+          8vw,
+          4rem
+        ); /* Farklı ekran boyutlarına uyumlu yazı boyutu */
+        font-weight: 700;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 10px var(--shadow-color);
+      }
+
+      .countdown-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap; /* Küçük ekranlarda alt satıra geçmesi için */
+        gap: 20px; /* Elemanlar arasına boşluk */
+      }
+
+      .time-unit {
+        text-align: center;
+      }
+
+      .time-unit .number {
+        font-size: clamp(3rem, 12vw, 6rem);
+        font-weight: 700;
+        line-height: 1;
+        text-shadow: 2px 2px 10px var(--shadow-color);
+      }
+
+      .time-unit .label {
+        font-size: clamp(0.8rem, 4vw, 1.2rem);
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+
+      #happyNewYear {
+        font-size: clamp(2.5rem, 10vw, 5rem);
+        text-shadow: 2px 2px 15px var(--shadow-color);
+        text-align: center;
+      }
+
+      /* Biten geri sayım için gizleme sınıfı */
+      .hidden {
+        opacity: 0;
+        display: none;
+      }
     </style>
-<body>
-    <div class="container">
-        <div class="heading">
-            <h1>New Years Event</h1>
-        </div>
-        <div class="numbers">
-            <div>
-                <h2 id="days">00</h2>
-                <p>days</p>
-            </div>
-            <div>
-                <h2 id="hours">00</h2>
-                <p>hours</p>
-            </div>
-            <div>
-                <h2 id="minuts">00</h2>
-                <p>minuts</p>
-            </div>
-            <div>
-                <h2 id="seconds">00</h2>
-                <p>seconds</p>
-            </div>
-        </div>
+  </head>
+  <body>
+    <h1 class="main-heading">Yeni Yıla Kalan Süre</h1>
 
+    <div class="countdown-container">
+      <div class="time-unit">
+        <h2 class="number" id="days">00</h2>
+        <p class="label">Gün</p>
+      </div>
+      <div class="time-unit">
+        <h2 class="number" id="hours">00</h2>
+        <p class="label">Saat</p>
+      </div>
+      <div class="time-unit">
+        <h2 class="number" id="minutes">00</h2>
+        <p class="label">Dakika</p>
+      </div>
+      <div class="time-unit">
+        <h2 class="number" id="seconds">00</h2>
+        <p class="label">Saniye</p>
+      </div>
     </div>
+
+    <h1 id="happyNewYear" class="hidden">🎉 Mutlu Yıllar! 🎉</h1>
+
     <script>
-        const daysEl = document.getElementById('days');
-        const hoursEl = document.getElementById('hours');
-        const minsEl = document.getElementById('minuts');
-        const secondsEl = document.getElementById('seconds');
+      document.addEventListener("DOMContentLoaded", () => {
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes"); // "minuts" -> "minutes" olarak düzeltildi
+        const secondsEl = document.getElementById("seconds");
+        const countdownContainer = document.querySelector(
+          ".countdown-container"
+        );
+        const mainHeading = document.querySelector(".main-heading");
+        const happyNewYearEl = document.getElementById("happyNewYear");
 
-        const newYears = new Date(Date.UTC(2025, 0, 1)); 
-        function countdown () {
-            const newYearsDate = new Date(newYears);
-            const currentDate = new Date();
+        // 1. İYİLEŞTİRME: Hedef tarihi dinamik olarak hesaplama
+        // Her zaman bir sonraki yılın 1 Ocak'ını hedefler.
+        const currentYear = new Date().getFullYear();
+        const newYearTime = new Date(`January 01 ${currentYear + 1} 00:00:00`);
 
-            const totalSeconds = (newYearsDate.getTime() - currentDate.getTime()) / 1000;
+        // 2. İYİLEŞTİRME: Tek basamaklı sayıları "09" gibi formatlama
+        const formatTime = (time) => (time < 10 ? `0${time}` : time);
 
-            const days = Math.floor(totalSeconds / 3600 / 24);
-            const hours = Math.floor(totalSeconds / 3600) % 24;
-            const mins = Math.floor(totalSeconds / 60) % 60;
-            const seconds = Math.floor(totalSeconds) % 60;
+        const updateCountdown = () => {
+          const currentTime = new Date();
+          const diff = newYearTime - currentTime;
 
-            daysEl.innerHTML = days;
-            hoursEl.innerHTML = hours;
-            minsEl.innerHTML = mins;
-            secondsEl.innerHTML = seconds;
-        }
+          // Zaman farkını gün, saat, dakika, saniyeye çevirme
+          const d = Math.floor(diff / 1000 / 60 / 60 / 24);
+          const h = Math.floor(diff / 1000 / 60 / 60) % 24;
+          const m = Math.floor(diff / 1000 / 60) % 60;
+          const s = Math.floor(diff / 1000) % 60;
 
-        countdown();
-        setInterval(countdown, 1000);
-</script>
+          // Değerleri HTML'e yazdırma
+          daysEl.innerHTML = formatTime(d);
+          hoursEl.innerHTML = formatTime(h);
+          minutesEl.innerHTML = formatTime(m);
+          secondsEl.innerHTML = formatTime(s);
 
+          // 3. İYİLEŞTİRME: Geri sayım bittiğinde zamanlayıcıyı durdurma
+          if (diff <= 0) {
+            clearInterval(countdownInterval);
+            // Geri sayımı gizle, tebrik mesajını göster
+            mainHeading.classList.add("hidden");
+            countdownContainer.classList.add("hidden");
+            happyNewYearEl.classList.remove("hidden");
+          }
+        };
 
-</body>
+        // Zamanlayıcıyı başlatma
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        // Sayfa ilk yüklendiğinde anında güncelleme
+        updateCountdown();
+      });
+    </script>
+  </body>
 </html>
